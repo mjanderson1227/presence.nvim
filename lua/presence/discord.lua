@@ -92,7 +92,7 @@ function Discord:read_message(nonce, on_response, err, chunk)
 
     elseif chunk then
         -- Strip header from the chunk
-        local message = chunk:match("({.+)")
+        local message = chunk:gsub("[^%g]", ""):match("{(.+)")
         local response_opcode = struct.unpack("<ii", chunk)
 
         self.decode_json(message, function(success, response)
